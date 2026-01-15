@@ -20,7 +20,7 @@ export default function AlbumDetail({ user: existingUser }) {
   const handleUpdateDescription = async (id) => {
     try {
       await axios.put(
-        `http://localhost:4000/albums/${id}`,
+        `https://kavios-pix-apis.vercel.app/albums/${id}`,
         { description: editedDesc },
         { withCredentials: true }
       );

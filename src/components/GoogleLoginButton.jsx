@@ -1,6 +1,6 @@
 const GoogleLoginButton = () => {
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:4000/auth/google";
+    window.location.href = "https://kavios-pix-apis.vercel.app/auth/google";
   };
 
   return (

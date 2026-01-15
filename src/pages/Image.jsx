@@ -1,21 +1,31 @@
+import axios from "axios";
+import { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
-import axios from "axios";
 
 const Image = () => {
   const params = useParams();
   const { id: albumId } = params;
-  const {
-    data,
-    loading,
-    error,
-    refetch: fetchData,
-  } = useFetch(`/albums/${albumId}/images`);
+
+  const [getFavorites, setGetFavorites] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [onSearch, setOnSearch] = useState("");
+
+  let url = `/albums/${albumId}/images`;
+
+  if (getFavorites) {
+    url += `/favorites`;
+  } else if (onSearch) {
+    url += `/by-tag?tags=${onSearch}`;
+  }
+
+  const { data, loading, error, refetch: fetchData } = useFetch(url);
 
   const handleDelete = async (imageId) => {
     try {
       await axios.delete(
-        `http://localhost:4000/albums/${albumId}/images/${imageId}`,
+        `https://kavios-pix-apis.vercel.app/albums/${albumId}/images/${imageId}`,
+
         { withCredentials: true }
       );
 
@@ -28,7 +38,8 @@ const Image = () => {
   const handleFavoriteToggle = async (imageId, currentValue) => {
     try {
       await axios.put(
-        `http://localhost:4000/albums/${albumId}/images/${imageId}/favorite`,
+        `https://kavios-pix-apis.vercel.app/albums/${albumId}/images/${imageId}/favorite`,
+
         { isFavorite: !currentValue },
         { withCredentials: true }
       );
@@ -47,7 +58,36 @@ const Image = () => {
   return (
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h4>Gallery</h4>
+        <div className="d-flex gap-4">
+          <h4>Gallery</h4>
+
+          <div className="d-flex gap-2 align-items-center">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by tag..."
+              style={{ maxWidth: "200px" }}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button
+              className="btn btn-secondary"
+              onClick={() => setOnSearch(searchQuery)}
+            >
+              search
+            </button>
+          </div>
+
+          <button
+            className={`btn ${
+              getFavorites ? "btn-danger" : "btn-outline-danger"
+            }`}
+            onClick={() => setGetFavorites(!getFavorites)}
+          >
+            ❤️ Favorites
+          </button>
+        </div>
+
         <NavLink
           state={{ albumId }}
           to={"/upload-image"}

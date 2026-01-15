@@ -1,9 +1,20 @@
-import React from "react";
+import axios from "axios";
 
 const Navbar = ({ user }) => {
-  const handleLogout = () => {
-    alert("Logged out!");
-    // Add your logout logic here
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        "https://kavios-pix-apis.vercel.app/auth/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout Failed", error);
+    }
   };
 
   return (
@@ -21,6 +32,7 @@ const Navbar = ({ user }) => {
           data-bs-toggle="dropdown"
           aria-expanded="false"
           style={{ cursor: "pointer", width: "30px" }}
+          referrerPolicy="no-referrer"
         />
 
         <ul className="dropdown-menu dropdown-menu-end">

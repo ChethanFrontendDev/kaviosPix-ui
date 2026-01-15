@@ -44,9 +44,17 @@ export default function ImageDetail() {
   };
 
   if (loading)
-    return <div className="alert alert-info text-center py-3">Loading...</div>;
+    return (
+      <div className="container alert alert-info text-center py-3">
+        Loading...
+      </div>
+    );
   if (error)
-    return <div className="alert alert-danger text-center py-3">{error}</div>;
+    return (
+      <div className="container alert alert-danger text-center py-3">
+        {error}
+      </div>
+    );
 
   return (
     <div className="container py-4">

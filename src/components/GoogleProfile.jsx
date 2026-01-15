@@ -12,9 +12,12 @@ const GoogleProfile = ({ user, setUser }) => {
 
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/user/profile", {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          "https://kavios-pix-apis.vercel.app/user/profile",
+          {
+            withCredentials: true,
+          }
+        );
         setUser(res.data.user);
 
         // redirect to home
@@ -38,23 +41,21 @@ const GoogleProfile = ({ user, setUser }) => {
   if (!user) return <p>Not logged in</p>;
 
   return (
-
     <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
       <div
         className="card shadow-lg p-4 text-center"
         style={{ maxWidth: "400px", width: "100%", borderRadius: "16px" }}
       >
         <img
-          src={user.picture}
+          src={user?.picture}
           alt="profile"
           className="rounded-circle mx-auto mb-3"
           style={{ width: "120px", height: "120px" }}
+          referrerPolicy="no-referrer"
         />
 
-        <h3 className="mb-1">Welcome, {user.name}</h3>
-        <p className="text-muted mb-3">{user.email}</p>
-
-        {/* <button className="btn btn-outline-danger">Logout</button> */}
+        <h3 className="mb-1">Welcome, {user?.name}</h3>
+        <p className="text-muted mb-3">{user?.email}</p>
       </div>
     </div>
   );

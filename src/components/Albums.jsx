@@ -13,7 +13,9 @@ const Albums = () => {
 
   const handleDeleteAlbum = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/albums/${id}`);
+      await axios.delete(`https://kavios-pix-apis.vercel.app/albums/${id}`, {
+        withCredentials: true,
+      });
       fetchData();
     } catch (error) {
       console.error(error);
