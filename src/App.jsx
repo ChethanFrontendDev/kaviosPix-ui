@@ -15,6 +15,7 @@ import axios from "axios";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,6 +27,8 @@ function App() {
         setUser(res.data.user);
       } catch (err) {
         setUser(null);
+      } finally {
+        setAuthLoading(false);
       }
     };
 
@@ -42,7 +45,7 @@ function App() {
               path="/v2/profile/google"
               element={<GoogleProfile user={user} setUser={setUser} />}
             />
-            <Route path="/" element={<Home user={user} />} />
+            <Route path="/" element={<Home user={user} authLoading={authLoading} />} />
             <Route path="/new-album" element={<AlbumForm user={user} />} />
             <Route path="/album/:id" element={<AlbumDetail user={user} />} />
             <Route path="/upload-image" element={<ImageForm />} />

@@ -78,6 +78,7 @@ const ImageForm = () => {
             name="tags"
             value={formData.tags}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -89,6 +90,7 @@ const ImageForm = () => {
             name="person"
             value={formData.person}
             onChange={handleChange}
+            required
           />
         </div>
 
