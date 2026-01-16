@@ -61,6 +61,18 @@ export default function ImageDetail() {
       <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="card shadow-sm p-4">
+            {/* IMAGE */}
+            {matchedData?.imageUrl && (
+              <div className="text-center mb-4">
+                <img
+                  src={matchedData.imageUrl}
+                  alt={matchedData.name}
+                  className="img-fluid rounded shadow-sm"
+                  style={{ maxHeight: "400px", objectFit: "contain" }}
+                />
+              </div>
+            )}
+
             <h4 className="mb-3">
               <span className="text-muted">Name:</span> {matchedData?.name}
             </h4>
