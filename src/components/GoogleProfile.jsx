@@ -5,39 +5,47 @@ import { useNavigate } from "react-router-dom";
 const GoogleProfile = ({ user, setUser }) => {
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   let timer;
+
+  //   const fetchProfile = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         "https://kavios-pix-apis.vercel.app/user/profile",
+  //         {
+  //           withCredentials: true,
+  //         }
+  //       );
+  //       setUser(res.data.user);
+
+  //       // redirect to home
+  //       timer = setTimeout(() => {
+  //         navigate("/", { replace: true });
+  //       }, 1000);
+  //     } catch (err) {
+  //       console.error("Not authenticated", err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchProfile();
+
+  //   // cleanup
+  //   return () => clearTimeout(timer);
+  // }, [navigate, setUser]);
 
   useEffect(() => {
-    let timer;
+    const timer = setTimeout(() => {
+      navigate("/", { replace: true });
+    }, 1000);
 
-    const fetchProfile = async () => {
-      try {
-        const res = await axios.get(
-          "https://kavios-pix-apis.vercel.app/user/profile",
-          {
-            withCredentials: true,
-          }
-        );
-        setUser(res.data.user);
-
-        // redirect to home
-        timer = setTimeout(() => {
-          navigate("/", { replace: true });
-        }, 1000);
-      } catch (err) {
-        console.error("Not authenticated", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
-
-    // cleanup
     return () => clearTimeout(timer);
-  }, [navigate, setUser]);
+  }, [navigate]);
 
-  if (loading) return <p>Loading...</p>;
+  // if (loading) return <p>Loading...</p>;
   if (!user) return <p>Not logged in</p>;
 
   return (

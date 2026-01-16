@@ -4,16 +4,34 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GoogleProfile from "./components/GoogleProfile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Home from "./pages/Home";
 import AlbumForm from "./components/AlbumForm";
 import Layout from "./components/Layout";
 import AlbumDetail from "./pages/AlbumDetail";
 import ImageForm from "./components/ImageForm";
 import ImageDetail from "./pages/ImageDetail";
+import axios from "axios";
 
 function App() {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(
+          "https://kavios-pix-apis.vercel.app/user/profile",
+          { withCredentials: true }
+        );
+        setUser(res.data.user);
+      } catch (err) {
+        setUser(null);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <>
       <Router>
