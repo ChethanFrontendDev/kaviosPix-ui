@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 const Navbar = ({ user }) => {
   const handleLogout = async () => {
@@ -8,7 +9,7 @@ const Navbar = ({ user }) => {
         {},
         {
           withCredentials: true,
-        }
+        },
       );
 
       window.location.reload();
@@ -19,9 +20,9 @@ const Navbar = ({ user }) => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light px-4">
-      <a className="navbar-brand" href="#">
+      <NavLink className="navbar-brand" to={"/"}>
         KaviosPix
-      </a>
+      </NavLink>
 
       <div className="ms-auto dropdown">
         <img
